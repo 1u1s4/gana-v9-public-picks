@@ -225,28 +225,41 @@ function App() {
       </nav>
 
       <section className="feed-layout" id="feed" aria-live="polite">
-        {visibleSections.map((section) => (
-          <article className="section-panel" key={section.id}>
-            <header className="section-header">
-              <div>
-                <p className="eyebrow">{section.required ? 'Required block' : 'Public block'}</p>
-                <h2>{section.title}</h2>
-                <p>{section.summary}</p>
-              </div>
-              <span className={`section-state ${section.state}`}>{stateLabels[section.state]}</span>
-            </header>
+        {visibleSections.map((section) => {
+          const displayLimit = section.kind === 'council_review' && filter === 'all' ? 6 : section.items.length;
+          const displayedItems = section.items.slice(0, displayLimit);
+          const hiddenCount = Math.max(section.items.length - displayedItems.length, 0);
 
-            {section.items.length ? (
-              <div className="pick-list">
-                {section.items.map((pick) => (
-                  <PickCard key={`${section.id}-${pick.id}`} pick={pick} />
-                ))}
-              </div>
-            ) : (
-              <div className="empty-state">No active picks in this block.</div>
-            )}
-          </article>
-        ))}
+          return (
+            <article className="section-panel" key={section.id}>
+              <header className="section-header">
+                <div>
+                  <p className="eyebrow">{section.required ? 'Required block' : 'Public block'}</p>
+                  <h2>{section.title}</h2>
+                  <p>{section.summary}</p>
+                </div>
+                <span className={`section-state ${section.state}`}>{stateLabels[section.state]}</span>
+              </header>
+
+              {hiddenCount > 0 ? (
+                <div className="review-summary">
+                  <strong>Mostrando {displayedItems.length} claves de revisión</strong>
+                  <span>{hiddenCount} más quedan visibles en las secciones Analysis/Required para evitar duplicar el feed completo.</span>
+                </div>
+              ) : null}
+
+              {displayedItems.length ? (
+                <div className="pick-list">
+                  {displayedItems.map((pick) => (
+                    <PickCard key={`${section.id}-${pick.id}`} pick={pick} />
+                  ))}
+                </div>
+              ) : (
+                <div className="empty-state">No active picks in this block.</div>
+              )}
+            </article>
+          );
+        })}
       </section>
 
       <section className="trust-layer" id="resultados">

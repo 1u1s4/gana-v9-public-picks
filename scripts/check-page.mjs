@@ -30,6 +30,7 @@ const required = [
   'Discord y web deben leer la misma verdad persistida',
   'Discord ↔ Web source of truth',
   'Ledger rows',
+  'Mostrando',
   'DB live',
   'review-required',
   'Demo/stale fallback',
