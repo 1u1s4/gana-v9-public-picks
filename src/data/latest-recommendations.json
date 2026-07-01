@@ -1,0 +1,318 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-01T18:54:27.111Z",
+  "riskLine": "+18 only. No guaranteed profit. Bet responsibly.",
+  "source": {
+    "kind": "gana-v9-daily-parlay-recommendations-artifact",
+    "coreRepoRelativePath": ".artifacts/gana-v9/runs/daily-2026-07-02-full/daily-parlay-recommendations.json",
+    "sha256": "641fcc97c154cda91db70ccfeabd5f5c4aed94a5c5e673785de71037da449f7a",
+    "dailyBatchId": "daily-2026-07-02-full",
+    "date": "2026-07-02",
+    "sourceRunIds": [
+      "7059bbff-980d-4f01-bf64-7304768f9d19",
+      "daily-2026-07-02-full-codex-764958da",
+      "daily-2026-07-02-full-codex-5072dc8e",
+      "daily-2026-07-02-full-codex-8c487941",
+      "daily-2026-07-02-full-codex-e98f2aea",
+      "daily-2026-07-02-full-codex-8b78d4c3",
+      "daily-2026-07-02-full-codex-balanced",
+      "daily-2026-07-02-full-codex-6f71dc15",
+      "daily-2026-07-02-full-codex-2446454a",
+      "daily-2026-07-02-full-codex-d30d514e"
+    ],
+    "publishedTargets": {
+      "artifactSelections": [],
+      "parlayIds": [
+        "daily-focus-parlay-diamante-1ddf6357737ef445",
+        "daily-focus-parlay-refinado-baf5267aef7af6e5",
+        "daily-focus-low-variance-7e7c12bec561520c"
+      ],
+      "predictionIds": [
+        "56e5aea9-ece5-4ac5-b5c3-153be0659bad",
+        "d3882fc6-3af2-43e8-bba9-29156d0a9630",
+        "f946b523-cdef-4463-bd55-4a55a39b0e7a",
+        "d25957f1-33b1-4bc4-95b4-d6c95f58ab15",
+        "fec780b9-0a5e-4a40-86a4-bd477292c431",
+        "9fdacfbe-5ff5-43c0-915f-1b9a7bcac64b"
+      ],
+      "recommendationCount": 3
+    },
+    "executionCapability": "none",
+    "analyticalArtifactOnly": true
+  },
+  "publicationTrace": {
+    "status": "published",
+    "dailyBatchId": "daily-2026-07-02-full",
+    "completedAt": "2026-07-01T16:32:27.429Z",
+    "recommendationCount": 3,
+    "selectionCount": 12,
+    "requiredLeagueSelectionCount": 9,
+    "discordMessageId": "1521916444835844160",
+    "discordMessageIds": [
+      "1521916444835844160",
+      "1521916485679845438"
+    ],
+    "exactPayloadPath": "/Users/luisalvarado/Documents/GitHub/gana-v9/.artifacts/gana-v9/runs/daily-2026-07-02-full/discord-recommendations-payload-801663f125900538.json",
+    "payloadPath": "/Users/luisalvarado/Documents/GitHub/gana-v9/.artifacts/gana-v9/runs/daily-2026-07-02-full/discord-recommendations-payload-801663f125900538.json",
+    "payloadSha256": "0df44667eb9fea4c5f6a827f00521199c1f410cbb0819460b756ae959ebf1bfd",
+    "targetLedger": null,
+    "publicationLedger": {
+      "ok": true,
+      "reason": "persisted-payload-ledger:9/9",
+      "persistence": "artifact-lock-payload-ledger",
+      "expected": 9,
+      "discordMessageIds": [
+        "1521916444835844160",
+        "1521916485679845438"
+      ],
+      "payloadPath": "/Users/luisalvarado/Documents/GitHub/gana-v9/.artifacts/gana-v9/runs/daily-2026-07-02-full/discord-recommendations-payload-801663f125900538.json",
+      "payloadSha256": "0df44667eb9fea4c5f6a827f00521199c1f410cbb0819460b756ae959ebf1bfd",
+      "artifactPath": "/Users/luisalvarado/Documents/GitHub/gana-v9/.artifacts/gana-v9/runs/daily-2026-07-02-full/daily-parlay-recommendations.json",
+      "targetIds": {
+        "artifactSelections": [],
+        "parlayIds": [
+          "daily-focus-parlay-diamante-1ddf6357737ef445",
+          "daily-focus-parlay-refinado-baf5267aef7af6e5",
+          "daily-focus-low-variance-7e7c12bec561520c"
+        ],
+        "predictionIds": [
+          "56e5aea9-ece5-4ac5-b5c3-153be0659bad",
+          "d3882fc6-3af2-43e8-bba9-29156d0a9630",
+          "f946b523-cdef-4463-bd55-4a55a39b0e7a",
+          "d25957f1-33b1-4bc4-95b4-d6c95f58ab15",
+          "fec780b9-0a5e-4a40-86a4-bd477292c431",
+          "9fdacfbe-5ff5-43c0-915f-1b9a7bcac64b"
+        ],
+        "recommendationCount": 3
+      },
+      "backfilledAt": "2026-07-01T18:44:08.700Z",
+      "dbRows": 0,
+      "dbReason": "database-migration-baseline-required:P3005"
+    },
+    "publicationLedgerStatus": "persisted",
+    "publicationLedgerReason": "persisted-payload-ledger:9/9"
+  },
+  "stats": {
+    "published": 3,
+    "settled": 0,
+    "hitRate": null,
+    "corrections": 0,
+    "roiVisible": false
+  },
+  "recommendations": [
+    {
+      "id": "daily-focus-parlay-diamante-1ddf6357737ef445",
+      "kind": "parlay",
+      "rank": 1,
+      "profile": "parlay-diamante",
+      "tier": "Prime",
+      "status": "review-required",
+      "sourceRunId": "7059bbff-980d-4f01-bf64-7304768f9d19",
+      "sourceRunIds": [
+        "7059bbff-980d-4f01-bf64-7304768f9d19"
+      ],
+      "parlayId": "daily-focus-parlay-diamante-1ddf6357737ef445",
+      "combinedOdds": 1.3176,
+      "aggregateConfidence": 0.85,
+      "stake": "0u · revisión manual",
+      "note": "Recomendación respaldada por artifact diario de gana-v9, marcada para revisión manual antes de cualquier promoción.",
+      "riskFlags": [
+        "daily-focus-fallback",
+        "analytical-fallback",
+        "review-required",
+        "profile-window-miss",
+        "low-liquidity",
+        "model-probability-safety-confidence",
+        "model-probability-conservative-total",
+        "model-probability-double-chance"
+      ],
+      "reasons": [
+        "daily focus fallback: strict parlay-diamante build unavailable",
+        "built from reviewed simple recommendations or candidate parlay legs",
+        "uses average leg confidence for review-only daily focus coverage"
+      ],
+      "legs": [
+        {
+          "predictionId": "56e5aea9-ece5-4ac5-b5c3-153be0659bad",
+          "fixtureId": "00f58bfb-812b-4eba-89b7-dcf43182c3ac",
+          "league": "Kakkonen - Lohko B",
+          "kickoff": "2026-07-02T15:30:00.000Z",
+          "fixture": "EBK vs ÅIFK",
+          "market": "Total goles",
+          "selection": "Más de 1.5",
+          "odds": 1.08,
+          "confidence": 0.88,
+          "status": "unvalidated",
+          "warnings": [
+            "Goal support is mostly league-level and market-derived; fixture-specific scoring splits were not supplied.",
+            "confidence 0.61 below promotion floor 0.65",
+            "low-liquidity"
+          ]
+        },
+        {
+          "predictionId": "d3882fc6-3af2-43e8-bba9-29156d0a9630",
+          "fixtureId": "fdcba03d-04fa-471b-a386-f6a093733c1e",
+          "league": "1 Lyga",
+          "kickoff": "2026-07-02T15:00:00.000Z",
+          "fixture": "BFA vs Ekranas",
+          "market": "Doble oportunidad",
+          "selection": "Local o empate",
+          "odds": 1.22,
+          "confidence": 0.82,
+          "status": "unvalidated",
+          "warnings": [
+            "Edge is computed against supplied marketFairProbability, which appears distorted for this market.",
+            "Analytical output only; no monetary action is recommended or authorized.",
+            "double_chance marketFairProbability appears distorted by overlapping selections and very high overround",
+            "single-bookmaker low-liquidity support",
+            "limited fixture-statistics payload",
+            "double_chance fair probability 0.375 was inconsistent with low-price implied probability 0.819672; edge capped to implied probability",
+            "confidence 0.54 below promotion floor 0.65",
+            "low-confidence",
+            "low-liquidity",
+            "model-reported edge differed from service fair-price edge"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "daily-focus-parlay-refinado-baf5267aef7af6e5",
+      "kind": "parlay",
+      "rank": 2,
+      "profile": "parlay-refinado",
+      "tier": "Prime",
+      "status": "review-required",
+      "sourceRunId": "7059bbff-980d-4f01-bf64-7304768f9d19",
+      "sourceRunIds": [
+        "7059bbff-980d-4f01-bf64-7304768f9d19"
+      ],
+      "parlayId": "daily-focus-parlay-refinado-baf5267aef7af6e5",
+      "combinedOdds": 1.3688,
+      "aggregateConfidence": 0.84,
+      "stake": "0u · revisión manual",
+      "note": "Recomendación respaldada por artifact diario de gana-v9, marcada para revisión manual antes de cualquier promoción.",
+      "riskFlags": [
+        "daily-focus-fallback",
+        "analytical-fallback",
+        "review-required",
+        "low-liquidity",
+        "model-probability-safety-confidence",
+        "model-probability-conservative-total"
+      ],
+      "reasons": [
+        "daily focus fallback: strict parlay-refinado build unavailable",
+        "built from reviewed simple recommendations or candidate parlay legs",
+        "uses average leg confidence for review-only daily focus coverage"
+      ],
+      "legs": [
+        {
+          "predictionId": "f946b523-cdef-4463-bd55-4a55a39b0e7a",
+          "fixtureId": "509e4d37-1def-4dab-b063-12bad895add2",
+          "league": "1. Division",
+          "kickoff": "2026-07-02T16:00:00.000Z",
+          "fixture": "Lyn vs Asane",
+          "market": "Total goles",
+          "selection": "Más de 1.5",
+          "odds": 1.16,
+          "confidence": 0.85,
+          "status": "unvalidated",
+          "warnings": [
+            "Conservative alternative; payout is short and liquidity warning remains.",
+            "Low return profile and lowLiquidity quote.",
+            "No detailed team statistical payload was included beyond snapshot identifiers.",
+            "low-liquidity"
+          ]
+        },
+        {
+          "predictionId": "d25957f1-33b1-4bc4-95b4-d6c95f58ab15",
+          "fixtureId": "579b6aba-4f3e-4ff3-a44d-adafaf8ac7a0",
+          "league": "Botola Pro",
+          "kickoff": "2026-07-02T17:00:00.000Z",
+          "fixture": "Olympique Dcheïra vs Olympique Safi",
+          "market": "Total goles",
+          "selection": "Menos de 3.5",
+          "odds": 1.18,
+          "confidence": 0.83,
+          "status": "unvalidated",
+          "warnings": [
+            "research is not promotable",
+            "Conservative alternative only; odds are short and quote support is low-liquidity.",
+            "All supplied goals quotes are marked lowLiquidity.",
+            "Lower payout profile and low-liquidity support limit standalone value.",
+            "low-liquidity"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "daily-focus-low-variance-7e7c12bec561520c",
+      "kind": "parlay",
+      "rank": 3,
+      "profile": "low-variance",
+      "tier": "Value",
+      "status": "review-required",
+      "sourceRunId": "7059bbff-980d-4f01-bf64-7304768f9d19",
+      "sourceRunIds": [
+        "7059bbff-980d-4f01-bf64-7304768f9d19"
+      ],
+      "parlayId": "daily-focus-low-variance-7e7c12bec561520c",
+      "combinedOdds": 1.404,
+      "aggregateConfidence": 0.8175,
+      "stake": "0u · revisión manual",
+      "note": "Recomendación respaldada por artifact diario de gana-v9, marcada para revisión manual antes de cualquier promoción.",
+      "riskFlags": [
+        "daily-focus-fallback",
+        "analytical-fallback",
+        "review-required",
+        "low-liquidity",
+        "model-probability-safety-confidence",
+        "model-probability-conservative-total"
+      ],
+      "reasons": [
+        "daily focus fallback: strict low-variance build unavailable",
+        "built from reviewed simple recommendations or candidate parlay legs",
+        "uses average leg confidence for review-only daily focus coverage"
+      ],
+      "legs": [
+        {
+          "predictionId": "fec780b9-0a5e-4a40-86a4-bd477292c431",
+          "fixtureId": "47a3c83e-5099-48d5-b05f-c91fcfccaaa2",
+          "league": "Botola Pro",
+          "kickoff": "2026-07-02T17:00:00.000Z",
+          "fixture": "CR Khemis Zemamra vs FUS Rabat",
+          "market": "Total goles",
+          "selection": "Menos de 3.5",
+          "odds": 1.17,
+          "confidence": 0.83,
+          "status": "unvalidated",
+          "warnings": [
+            "research is not promotable",
+            "conservative alternative only; odds are short",
+            "all goals_over_under allowed quotes are low liquidity",
+            "low-liquidity quote support",
+            "short odds limit analytical upside",
+            "low-liquidity"
+          ]
+        },
+        {
+          "predictionId": "9fdacfbe-5ff5-43c0-915f-1b9a7bcac64b",
+          "fixtureId": "a19392f7-b6c2-4d69-8aaf-e6e5cdd9ee32",
+          "league": "Botola Pro",
+          "kickoff": "2026-07-02T17:00:00.000Z",
+          "fixture": "UTS Rabat vs Ittihad Tanger",
+          "market": "Total goles",
+          "selection": "Menos de 3.5",
+          "odds": 1.2,
+          "confidence": 0.805,
+          "status": "unvalidated",
+          "warnings": [
+            "research is not promotable",
+            "Lower odds reduce value margin, and the quote is supported by only one bookmaker.",
+            "Only one bookmaker is present in the supplied odds snapshot.",
+            "low-liquidity"
+          ]
+        }
+      ]
+    }
+  ]
+}
