@@ -27,6 +27,8 @@ const required = [
   'Required parlays',
   'Council / manual review',
   'Discord y web deben leer la misma verdad persistida',
+  'Discord ↔ Web source of truth',
+  'Ledger rows',
   'DB live',
   'review-required',
   'Demo/stale fallback',
@@ -86,6 +88,16 @@ try {
       slateDate: 'Wednesday, July 1',
       timezone: 'America/Guatemala',
       generatedAt: '2026-07-01T18:00:00-06:00',
+      source: {
+        publicationLedger: {
+          status: 'persisted',
+          publicationCount: 9,
+          publishedAt: '2026-07-02T16:32:00.000Z',
+          discordMessageIds: ['discord-1', 'discord-2'],
+          payloadSha256: 'abcdef1234567890',
+          note: 'Discord publication targets are persisted.',
+        },
+      },
       sections: [
         {
           kind: 'daily_parlays',
@@ -144,6 +156,9 @@ try {
 
   assert(apiFeed.source === 'api', 'API feed source should be preserved');
   assert(apiFeed.freshness === 'fresh', 'API feed should default to fresh');
+  assert(apiFeed.publicationLedger.status === 'persisted', 'Ledger status should normalize persisted state');
+  assert(apiFeed.publicationLedger.label.includes('9 targets'), 'Ledger banner should expose persisted target count');
+  assert(apiFeed.publicationLedger.discordMessageIds.length === 2, 'Ledger should expose Discord ids count');
   assert(apiFeed.sections.length === 4, 'API feed should render all Discord sections');
   assert(apiFeed.sections[1].kind === 'world_cup_mandatory', 'World Cup section should normalize');
   assert(apiFeed.sections[1].required === true, 'World Cup mandatory section should be required');

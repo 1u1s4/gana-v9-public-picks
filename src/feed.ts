@@ -43,6 +43,18 @@ export type FeedStats = {
   hitRate: string;
 };
 
+export type PublicationLedgerStatus = 'persisted' | 'artifact-only' | 'missing' | 'unknown';
+
+export type PublicationLedgerSummary = {
+  status: PublicationLedgerStatus;
+  label: string;
+  publicationCount: number;
+  publishedAt: string | null;
+  discordMessageIds: string[];
+  payloadSha256: string | null;
+  note: string;
+};
+
 export type PublicFeed = {
   source: FeedSource;
   freshness: FeedFreshness;
@@ -53,6 +65,7 @@ export type PublicFeed = {
   generatedAt: string;
   nextRefreshSeconds: number;
   stats: FeedStats;
+  publicationLedger: PublicationLedgerSummary;
   sections: FeedSection[];
 };
 
@@ -75,7 +88,16 @@ export type RawPublicFeed = {
     requiredLeagueGeneralPredictions?: number;
     status?: string;
   };
-  source?: { publicationLedger?: { status?: string; publicationCount?: number; note?: string } };
+  source?: {
+    publicationLedger?: {
+      status?: string;
+      publicationCount?: number;
+      publishedAt?: string | null;
+      discordMessageIds?: string[];
+      payloadSha256?: string | null;
+      note?: string;
+    };
+  };
   sections?: RawFeedSection[];
   parlays?: RawApiRecommendation[];
   atomicPredictions?: RawApiRecommendation[];
@@ -249,8 +271,36 @@ export function transformPublicFeed(raw: RawPublicFeed, source: FeedSource = 'ap
     generatedAt,
     nextRefreshSeconds: Number(raw.nextRefreshSeconds ?? 45),
     stats,
+    publicationLedger: normalizePublicationLedger(raw.source?.publicationLedger),
     sections,
   };
+}
+
+function normalizePublicationLedger(raw: RawPublicFeed['source'] extends { publicationLedger?: infer L } ? L : never): PublicationLedgerSummary {
+  const status = normalizeLedgerStatus(raw?.status);
+  const publicationCount = Number.isFinite(raw?.publicationCount) ? Number(raw?.publicationCount) : 0;
+  const messageIds = Array.isArray(raw?.discordMessageIds) ? raw.discordMessageIds.filter(Boolean) : [];
+  const labels: Record<PublicationLedgerStatus, string> = {
+    persisted: publicationCount > 0 ? `Persistido · ${publicationCount} targets` : 'Persistido',
+    'artifact-only': 'Artifact verificado · sin Discord ID',
+    missing: 'Ledger pendiente',
+    unknown: 'Ledger desconocido',
+  };
+
+  return {
+    status,
+    label: labels[status],
+    publicationCount,
+    publishedAt: raw?.publishedAt ?? null,
+    discordMessageIds: messageIds,
+    payloadSha256: raw?.payloadSha256 ?? null,
+    note: raw?.note ?? 'Publication ledger status is not available for this feed.',
+  };
+}
+
+function normalizeLedgerStatus(value?: string): PublicationLedgerStatus {
+  if (value === 'persisted' || value === 'artifact-only' || value === 'missing') return value;
+  return 'unknown';
 }
 
 function uniquePickCount(items: PublicPick[]): number {

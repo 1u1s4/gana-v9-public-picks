@@ -196,6 +196,19 @@ function App() {
         )}
       </section>
 
+      <section className={`ledger-banner ${feedState.feed.publicationLedger.status}`} aria-label="Publication ledger status">
+        <div>
+          <p className="eyebrow">Discord ↔ Web source of truth</p>
+          <h2>{feedState.feed.publicationLedger.label}</h2>
+          <p>{feedState.feed.publicationLedger.note}</p>
+        </div>
+        <dl>
+          <Metric label="Ledger rows" value={feedState.feed.publicationLedger.publicationCount.toString()} />
+          <Metric label="Discord IDs" value={feedState.feed.publicationLedger.discordMessageIds.length.toString()} />
+          <Metric label="Payload hash" value={shortHash(feedState.feed.publicationLedger.payloadSha256)} />
+        </dl>
+      </section>
+
       <nav className="tabs" aria-label="Feed filters">
         {(['all', ...sectionOrder] as FeedFilter[]).map((option) => (
           <button
@@ -240,10 +253,9 @@ function App() {
           <p className="eyebrow">Trust layer</p>
           <h2>No se borran picks perdidos</h2>
           <p>
-            Discord y web deben leer la misma verdad persistida.{' '}
-            The public ledger is append-only: every card keeps market, selection, odds, tier, stake,
-            publish time and review state. Corrections stay visible and manual-review picks never count
-            as settled wins.
+            Discord y web deben leer la misma verdad persistida; hoy Discord y web leen la misma verdad pública.
+            El estado de ledger arriba separa publicaciones persistidas de batches viejos que sólo tienen
+            artifact auditado. Corrections stay visible and manual-review picks never count as settled wins.
           </p>
         </div>
         <ul>
@@ -348,6 +360,10 @@ function withDefaultSlateDate(feedUrl: string, slateDate?: string): string {
   if (!slateDate || /[?&]date=/.test(feedUrl)) return feedUrl;
   const separator = feedUrl.includes('?') ? '&' : '?';
   return `${feedUrl}${separator}date=${encodeURIComponent(slateDate)}`;
+}
+
+function shortHash(value: string | null) {
+  return value ? value.slice(0, 10) : '—';
 }
 
 function formatSyncTime(value: string, timezone: string) {
