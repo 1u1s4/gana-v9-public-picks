@@ -5,6 +5,7 @@ export type FeedFreshness = 'fresh' | 'stale';
 export type FeedSectionKind =
   | 'daily_parlays'
   | 'world_cup_mandatory'
+  | 'world_cup_general'
   | 'required_parlays'
   | 'council_review';
 
@@ -183,6 +184,7 @@ export type RawApiFixture = {
 export const sectionOrder: FeedSectionKind[] = [
   'daily_parlays',
   'world_cup_mandatory',
+  'world_cup_general',
   'required_parlays',
   'council_review',
 ];
@@ -202,8 +204,16 @@ const sectionDefaults: Record<
   world_cup_mandatory: {
     id: 'world-cup-mandatory',
     kind: 'world_cup_mandatory',
-    title: 'World Cup mandatory predictions',
-    summary: 'Predicciones obligatorias para el bloque mundialista antes del cierre.',
+    title: 'World Cup mandatory picks',
+    summary: 'Las tres predicciones obligatorias del bloque mundialista, separadas del análisis general.',
+    state: 'ready',
+    required: true,
+  },
+  world_cup_general: {
+    id: 'world-cup-general',
+    kind: 'world_cup_general',
+    title: 'World Cup general board',
+    summary: 'Lectura completa por partido: resultado, doble oportunidad, goles, BTTS y corners.',
     state: 'ready',
     required: true,
   },
@@ -352,13 +362,15 @@ function normalizeSections(raw: RawPublicFeed): FeedSection[] {
 function normalizeApiRecommendationSections(raw: RawPublicFeed): FeedSection[] {
   const parlays = raw.parlays?.map((item) => apiRecommendationToPick(item, 'parlay')) ?? [];
   const atomic = raw.atomicPredictions?.map((item) => apiRecommendationToPick(item, 'atomic')) ?? [];
-  const required = raw.requiredLeagueGeneralPredictions?.map((item) => apiRecommendationToPick(item, 'required')) ?? [];
+  const required = raw.requiredLeague?.atomicProjections?.map((item) => apiRecommendationToPick(item, 'required')) ?? [];
+  const general = raw.requiredLeagueGeneralPredictions?.map((item) => apiRecommendationToPick(item, 'required')) ?? [];
   const requiredParlays = raw.requiredLeague?.selectedParlayApproaches?.map((item) => apiRecommendationToPick(item, 'parlay')) ?? [];
-  const review = [...parlays, ...atomic, ...required, ...requiredParlays].filter((pick) => normalizeResult(pick.status ?? pick.result) === 'manual_review');
+  const review = [...parlays, ...atomic, ...required, ...general, ...requiredParlays].filter((pick) => normalizeResult(pick.status ?? pick.result) === 'manual_review');
 
   return [
     normalizeSection({ kind: 'daily_parlays', items: [...parlays, ...atomic] }),
     normalizeSection({ kind: 'world_cup_mandatory', required: true, items: required.filter((pick) => /world cup|mundial/i.test(pick.league ?? '')) }),
+    normalizeSection({ kind: 'world_cup_general', required: true, items: general.filter((pick) => /world cup|mundial/i.test(pick.league ?? '')) }),
     normalizeSection({ kind: 'required_parlays', required: true, items: requiredParlays }),
     normalizeSection({ kind: 'council_review', state: 'manual_review', items: review }),
   ];
@@ -544,6 +556,7 @@ function normalizeSectionKind(kind?: string): FeedSectionKind {
   if (kind === 'world_cup_mandatory' || kind === 'worldCupMandatoryPredictions') {
     return 'world_cup_mandatory';
   }
+  if (kind === 'world_cup_general' || kind === 'worldCupGeneralPredictions') return 'world_cup_general';
   if (kind === 'required_parlays' || kind === 'requiredParlays') return 'required_parlays';
   if (kind === 'council_review' || kind === 'councilReview') return 'council_review';
   return 'daily_parlays';

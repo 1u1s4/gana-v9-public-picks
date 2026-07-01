@@ -23,7 +23,8 @@ const required = [
   'Prime',
   'Mandatory',
   'Daily parlays',
-  'World Cup mandatory predictions',
+  'World Cup mandatory picks',
+  'World Cup general board',
   'Required parlays',
   'Council / manual review',
   'Discord y web deben leer la misma verdad persistida',
@@ -159,13 +160,14 @@ try {
   assert(apiFeed.publicationLedger.status === 'persisted', 'Ledger status should normalize persisted state');
   assert(apiFeed.publicationLedger.label.includes('9 targets'), 'Ledger banner should expose persisted target count');
   assert(apiFeed.publicationLedger.discordMessageIds.length === 2, 'Ledger should expose Discord ids count');
-  assert(apiFeed.sections.length === 4, 'API feed should render all Discord sections');
-  assert(apiFeed.sections[1].kind === 'world_cup_mandatory', 'World Cup section should normalize');
+  assert(apiFeed.sections.length === 5, 'API feed should render all Discord sections');
+  assert(apiFeed.sections[1].kind === 'world_cup_mandatory', 'World Cup mandatory section should normalize');
   assert(apiFeed.sections[1].required === true, 'World Cup mandatory section should be required');
-  assert(apiFeed.sections[2].kind === 'required_parlays', 'Required parlay section should normalize');
-  assert(apiFeed.sections[3].state === 'manual_review', 'Council section state should normalize');
+  assert(apiFeed.sections[2].kind === 'world_cup_general', 'World Cup general section should normalize');
+  assert(apiFeed.sections[3].kind === 'required_parlays', 'Required parlay section should normalize');
+  assert(apiFeed.sections[4].state === 'manual_review', 'Council section state should normalize');
   assert(
-    apiFeed.sections[3].items[0].result === 'manual_review',
+    apiFeed.sections[4].items[0].result === 'manual_review',
     'Manual review pick state should normalize',
   );
   assert(apiFeed.sections[0].items[0].odds === 1.34, 'String odds should become numbers');
@@ -174,16 +176,35 @@ try {
     'Section filter should return required parlays only',
   );
 
+  const liveShapeFeed = transformPublicFeed(
+    {
+      dailySummary: { total: 21, parlays: 3, requiredLeagueGeneralPredictions: 18, status: 'available' },
+      requiredLeague: {
+        atomicProjections: [
+          { id: 'must-1', kind: 'required-league-atomic', fixture: { label: 'Spain vs Austria', league: 'World Cup' }, market: 'h2h', selection: 'home', odds: 1.33, confidence: 0.7, status: 'promotable' },
+          { id: 'must-2', kind: 'required-league-atomic', fixture: { label: 'Portugal vs Croatia', league: 'World Cup' }, market: 'goals_over_under', selection: 'under', line: 2.5, odds: 1.76, confidence: 0.64, status: 'review-required' },
+          { id: 'must-3', kind: 'required-league-atomic', fixture: { label: 'Switzerland vs Algeria', league: 'World Cup' }, market: 'goals_over_under', selection: 'under', line: 3.25, odds: 1.31, confidence: 0.6, status: 'review-required' },
+        ],
+        selectedParlayApproaches: Array.from({ length: 6 }, (_, index) => ({ id: `required-parlay-${index}`, kind: 'parlay', profile: 'principal', fixture: { label: 'Spain vs Austria + Portugal vs Croatia', league: 'World Cup' }, odds: 1.54, confidence: 0.64, status: 'review-required', legs: [] })),
+      },
+      requiredLeagueGeneralPredictions: Array.from({ length: 18 }, (_, index) => ({ id: `general-${index}`, kind: 'required-league-general', fixture: { label: 'Portugal vs Croatia', league: 'World Cup' }, market: 'double_chance', selection: 'home_or_draw', odds: 1.17, confidence: 0.8, status: 'blocked' })),
+    },
+    'api',
+  );
+  assert(liveShapeFeed.sections[1].items.length === 3, 'World Cup mandatory should show only the 3 required atomic picks');
+  assert(liveShapeFeed.sections[2].items.length === 18, 'World Cup general board should show the 18 general predictions');
+  assert(liveShapeFeed.sections[3].items.length === 6, 'Required parlays should show the 6 selected approaches');
+
   const demoFeed = transformPublicFeed({ dailyParlays: [{ selection: 'Demo pick' }] }, 'demo');
   assert(demoFeed.source === 'demo', 'Fallback feed should be marked demo');
   assert(demoFeed.freshness === 'stale', 'Fallback feed should be marked stale');
 
   const artifactFeed = latestArtifactToFeed(JSON.parse(dataSource), 'test fallback');
   assert(artifactFeed.source === 'demo', 'Artifact fallback should be marked demo/stale');
-  assert(artifactFeed.sections.length === 4, 'Artifact fallback should render all Discord sections');
+  assert(artifactFeed.sections.length === 5, 'Artifact fallback should render all Discord sections');
   assert(artifactFeed.sections[0].items.length > 0, 'Artifact fallback should expose daily parlays');
   assert(
-    artifactFeed.sections[3].state === 'manual_review',
+    artifactFeed.sections[4].state === 'manual_review',
     'Artifact fallback should preserve council review state',
   );
 } finally {

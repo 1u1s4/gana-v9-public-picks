@@ -31,6 +31,7 @@ const filterLabels: Record<FeedFilter, string> = {
   all: 'All',
   daily_parlays: 'Daily',
   world_cup_mandatory: 'World Cup',
+  world_cup_general: 'Analysis',
   required_parlays: 'Required',
   council_review: 'Council',
 };
